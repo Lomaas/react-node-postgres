@@ -1,30 +1,13 @@
-/**
- * App entry point
- */
-
-// Polyfill
 import "babel-core/polyfill";
-
-// Libraries
 import React from "react";
 import Router from "react-router";
-
-// Common utilities
 import Session from "./common/session";
-
-// Base styling
 import "./common/base.css";
-
-// Routers
 import LoggedOutRouter from "./routers/logged_out";
 import LoggedInRouter from "./routers/logged_in";
 
 
-// ID of the DOM element to mount app on
 const DOM_APP_EL_ID = "app";
-
-
-// Initialize routes depending on session
 let routes;
 
 if (Session.isLoggedIn()) {

@@ -1,21 +1,8 @@
 var express = require('express');
 var app = express();
 
+var stories = require('./src/server/stories/rest.js');
 
-/************************************************************
- *
- * Express routes for:
- *   - app.js
- *   - style.css
- *   - index.html
- *
- *   Sample endpoints to demo async data fetching:
- *     - POST /landing
- *     - POST /home
- *
- ************************************************************/
-
-// Serve application file depending on environment
 app.get('/app.js', function(req, res) {
   if (process.env.PRODUCTION) {
     res.sendFile(__dirname + '/build/app.js');
@@ -24,7 +11,6 @@ app.get('/app.js', function(req, res) {
   }
 });
 
-// Serve aggregate stylesheet depending on environment
 app.get('/style.css', function(req, res) {
   if (process.env.PRODUCTION) {
     res.sendFile(__dirname + '/build/style.css');
@@ -33,10 +19,12 @@ app.get('/style.css', function(req, res) {
   }
 });
 
-// Serve index page
-app.get('*', function(req, res) {
+
+app.get('/', function(req, res) {
   res.sendFile(__dirname + '/build/index.html');
 });
+
+app.get('/api/stories', stories.get);
 
 app.post('/landing', function(req, res) {
   res.json({
@@ -49,15 +37,6 @@ app.post('/home', function(req, res) {
     title: "Home Page"
   });
 });
-
-
-/*************************************************************
- *
- * Webpack Dev Server
- *
- * See: http://webpack.github.io/docs/webpack-dev-server.html
- *
- *************************************************************/
 
 if (!process.env.PRODUCTION) {
   var webpack = require('webpack');
@@ -75,13 +54,6 @@ if (!process.env.PRODUCTION) {
     }
   });
 }
-
-
-/******************
- *
- * Express server
- *
- *****************/
 
 var port = process.env.PORT || 8080;
 var server = app.listen(port, function () {

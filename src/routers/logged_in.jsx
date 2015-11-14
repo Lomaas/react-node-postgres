@@ -2,7 +2,7 @@ import React from "react";
 import { Route, DefaultRoute, RouteHandler, Link } from "react-router";
 
 import HomePage from "../pages/home/page";
-
+import About from "../pages/about/about";
 
 export default class LoggedInRouter extends React.Component {
   render() {
@@ -25,8 +25,8 @@ export default class LoggedInRouter extends React.Component {
     return (
       <Route name="app" path="/" handler={LoggedInRouter}>
         <DefaultRoute name="home" handler={HomePage} />
+        <Route name="about" path="/about" handler={About} />
       </Route>
     );
   }
-
 }
